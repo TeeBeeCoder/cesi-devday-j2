@@ -1,0 +1,3 @@
+#!/bin/sh
+set -eu
+npm exec --no -- commitlint --edit "$1"
