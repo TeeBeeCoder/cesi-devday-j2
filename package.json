@@ -23,13 +23,15 @@
     "format:write": "prettier --write src",
     "lint:css": "stylelint \"src/**/*.css\"",
     "test:logic": "vitest run --config vitest.logic.config.js",
-    "test:component": "vitest run test/App.test.jsx"
+    "test:component": "vitest run test/App.test.jsx",
+    "lint:a11y": "eslint --config eslint.a11y.config.js \"src/**/*.jsx\""
   },
   "dependencies": {
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
     "@eslint/js": "10.0.1",
