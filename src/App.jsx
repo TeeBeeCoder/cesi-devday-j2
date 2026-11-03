@@ -3,7 +3,6 @@ import { workshops } from './data.js';
 import { filterWorkshops } from './workshops.js';
 
 export default function App() {
-  const debugMessage = 'workshop page';
   const [query, setQuery] = useState('');
   const [onlyAvailable, setOnlyAvailable] = useState(false);
   const visibleWorkshops = filterWorkshops(workshops, query, onlyAvailable);
@@ -40,7 +39,7 @@ export default function App() {
           </div>
           <div className="grid gap-5 border-y border-stone-900/20 bg-white px-5 py-6 md:grid-cols-[1fr_auto] md:items-end">
             <div><label htmlFor="search" className="mb-2 block text-sm font-semibold">Rechercher un atelier</label>
-              <input id="search" type="search" value={query} onChange={(event) => { console.log('search changed'); setQuery(event.target.value); }} placeholder="Un titre ou un thème : React, qualité…" className="w-full border border-stone-400 bg-stone-50 px-4 py-3" /></div>
+              <input id="search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Un titre ou un thème : React, qualité…" className="w-full border border-stone-400 bg-stone-50 px-4 py-3" /></div>
             <label className="flex cursor-pointer items-center gap-3 py-3 text-sm font-semibold"><input type="checkbox" checked={onlyAvailable} onChange={(event) => setOnlyAvailable(event.target.checked)} className="h-5 w-5 accent-blue-800" />Afficher seulement les ateliers avec des places</label>
           </div>
           <div className="my-5 flex flex-wrap items-center justify-between gap-3 text-sm">
