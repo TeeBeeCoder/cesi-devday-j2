@@ -44,7 +44,7 @@ export default function App() {
             <label className="flex cursor-pointer items-center gap-3 py-3 text-sm font-semibold"><input type="checkbox" checked={onlyAvailable} onChange={(event) => setOnlyAvailable(event.target.checked)} className="h-5 w-5 accent-blue-800" />Afficher seulement les ateliers avec des places</label>
           </div>
           <div className="my-5 flex flex-wrap items-center justify-between gap-3 text-sm">
-            <p role="status"><span className="font-bold">{visibleWorkshops.length} atelier{visibleWorkshops.length === 1 ? '' : 's'}</span> · Recherche : <span dangerouslySetInnerHTML={{ __html: query.trim() || 'tout le programme' }} /></p>
+            <p role="status"><span className="font-bold">{visibleWorkshops.length} atelier{visibleWorkshops.length === 1 ? '' : 's'}</span> · Recherche : <span>{query.trim() || 'tout le programme'}</span></p>
             {query && <button type="button" onClick={() => setQuery('')} className="font-semibold text-blue-800 underline underline-offset-4">Effacer la recherche</button>}
           </div>
           <div className="grid gap-5 lg:grid-cols-3">
