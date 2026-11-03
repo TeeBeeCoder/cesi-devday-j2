@@ -77,6 +77,17 @@ Dans le dashboard, relever le projet, la révision, une alerte ou une mesure, le
 
 Pour arrêter sans supprimer les données : `docker compose -f compose.sonar.yml stop sonarqube`. Si le fichier est introuvable, vérifier le dossier ; si le daemon est inaccessible, démarrer Docker ; si le port 9000 est occupé, identifier le service déjà présent avant de modifier la configuration.
 
+### Scanner une instance locale installée depuis le ZIP
+
+Si le serveur Community Build est installé directement sur le poste, configurez son adresse de boucle locale dans `.env` avec le jeton du projet `cesi-devday-j2`. Le scanner npm utilise le même périmètre et le même rapport LCOV que le scanner Compose.
+
+```sh
+npm run test:unit
+npm run sonar:host
+```
+
+Pour cet exercice, le serveur a été démarré sur macOS depuis le ZIP officiel avec Java 21 et la base embarquée. L’instance écoute sur `127.0.0.1`. Suivez les étapes d’installation du serveur pour reproduire cette variante. [Documentation SonarQube](https://docs.sonarsource.com/sonarqube-community-build/server-installation/from-zip-file/basic-installation)
+
 ## 6. Mettre le projet sur GitHub et publier
 
 Créer un dépôt public d’exercice `devday` sur GitHub, puis choisir **Settings → Pages → Source: GitHub Actions**. Depuis ce dossier, adapter l’URL à votre compte autorisé :

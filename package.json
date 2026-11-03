@@ -24,7 +24,8 @@
     "lint:css": "stylelint \"src/**/*.css\"",
     "test:logic": "vitest run --config vitest.logic.config.js",
     "test:component": "vitest run test/App.test.jsx",
-    "lint:a11y": "eslint --config eslint.a11y.config.js \"src/**/*.jsx\""
+    "lint:a11y": "eslint --config eslint.a11y.config.js \"src/**/*.jsx\"",
+    "sonar:host": "node scripts/sonar-host.mjs"
   },
   "dependencies": {
     "react": "19.3.1",
