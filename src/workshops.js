@@ -1,4 +1,11 @@
-// Intentionally incomplete classroom proposal.
+function normalize(value) {
+  return value.trim().toLocaleLowerCase('fr').normalize('NFD').replace(/\p{Diacritic}/gu, '');
+}
+
 export function filterWorkshops(workshops, query, onlyAvailable) {
-  return workshops.filter((item) => item.title.includes(query) && (!onlyAvailable || item.seats != 0));
+  const search = normalize(query);
+  return workshops.filter((item) =>
+    normalize(`${item.title} ${item.topic}`).includes(search) &&
+    (!onlyAvailable || item.seats > 0)
+  );
 }
