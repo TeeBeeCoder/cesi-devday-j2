@@ -1,0 +1,10 @@
+@import "tailwindcss" source("./");
+
+@theme { --font-sans: "Avenir Next", "Segoe UI", sans-serif; }
+:root { color: #1c1917; background: #f5f3ed; font-family: var(--font-sans); scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid #c2410c; outline-offset: 4px; }
+::selection { color: white; background: #1e40af; }
+@media (prefers-reduced-motion: reduce) { :root { scroll-behavior: auto; } }
