@@ -39,6 +39,22 @@ npm run quality:summary
 
 Le build crée `dist/`. Playwright démarre un aperçu de ce build et essaie la page sur ordinateur et mobile, au clavier et avec une recherche ressemblant à du HTML. Ouvrir `playwright-report/index.html` pour les scénarios, puis `reports/qualite.md` pour le résumé. `npm run check` enchaîne lint, tests, build et parcours navigateur ; à utiliser lorsque les corrections sont terminées.
 
+## Contrôles ajoutés dans cette démonstration
+
+Utilisez Node.js 24.16.0. Après `npm ci`, activez le hook Commitlint sur ce clone avec `npm run hooks:install`. Le pipeline vérifie aussi les messages de l’historique.
+
+```sh
+npm run test:logic
+npm run test:component
+npm run check
+npm run quality:summary
+npm run lint:commits
+```
+
+Le contrôle complet combine Prettier, Stylelint, ESLint/React, lint JSX, couverture Vitest, build et scénarios Chromium sur bureau et mobile. Playwright vérifie le comportement, l’accessibilité avec axe et les captures de référence. Relisez les différences avant d’accepter une capture. Les références Linux sont produites par le même workflow Ubuntu que celui qui les compare, puis versionnées après revue. Une exécution de génération de références ne déploie pas le site.
+
+Pour publier sur GitHub Pages, sélectionnez GitHub Actions comme source puis définissez la variable de dépôt `ENABLE_PAGES=true`. Le job de publication dépend du job qualité sur `main`. Sonar s’exécute sur le poste avec Docker Compose.
+
 ## 5. Installer SonarQube local avec Docker
 
 Les images sont figées par digest dans `compose.sonar.yml` et `.env.example`. Précharger et tester ces images ainsi que les prérequis mémoire/système de chaque poste avant la séance. La base embarquée sert au laboratoire temporaire, pas à la production.
@@ -55,7 +71,7 @@ npm run test:unit
 npm run sonar
 ```
 
-Le scanner Docker utilise le même réseau Compose que le serveur : `http://sonarqube:9000`. Le navigateur du poste utilise `http://localhost:9000/dashboard?id=delta-web`. Le script importe les sources et le LCOV, reprend l’utilisateur Unix du poste et fixe un dossier de travail accessible. Le scanner attend le Quality Gate : lire son journal et la tâche du serveur pour distinguer erreur technique et gate refusé.
+Le scanner Docker utilise le même réseau Compose que le serveur : `http://sonarqube:9000`. Le navigateur du poste utilise `http://localhost:9000/dashboard?id=cesi-devday-j2`. Le script importe les sources et le LCOV, reprend l’utilisateur Unix du poste et fixe un dossier de travail accessible. Le scanner attend le Quality Gate : lire son journal et la tâche du serveur pour distinguer erreur technique et gate refusé.
 
 Dans le dashboard, relever le projet, la révision, une alerte ou une mesure, le profil réellement actif et les conditions du gate. Les mesures du nouveau code et du code global sont différentes. Corriger, relancer les tests et scanner une seconde fois. Une alerte corrigée peut rester visible comme CLOSED/FIXED. Conserver les deux résultats dans le journal.
 

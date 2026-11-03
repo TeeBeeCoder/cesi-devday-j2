@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 if (existsSync('.env')) process.loadEnvFile('.env');
-const key = process.env.SONAR_PROJECT_KEY || 'delta-web';
+const key = process.env.SONAR_PROJECT_KEY || 'cesi-devday-j2';
 if (!process.env.SONAR_TOKEN) {
   console.error('Set SONAR_TOKEN in the ignored .env file before running the local scan.');
   process.exit(1);
