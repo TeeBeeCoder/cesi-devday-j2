@@ -29,7 +29,11 @@ Vitest mesure 100 % des lignes sur son périmètre configuré. Sonar mesure 97,1
 - [Contrôle complet de main avec les références versionnées](https://github.com/TeeBeeCoder/cesi-devday-j2/actions/runs/41619461915).
 - [PR de démonstration](https://github.com/TeeBeeCoder/cesi-devday-j2/pull/1), [4 échecs Vitest après régression](https://github.com/TeeBeeCoder/cesi-devday-j2/actions/runs/41619576943), [contrôles réussis après restauration](https://github.com/TeeBeeCoder/cesi-devday-j2/actions/runs/41619789301).
 
-Le workflow conserve les rapports et le build statique vérifié dans les artefacts. Le job Pages attend le succès du job qualité et l’activation de Pages. GitHub a refusé l’activation sur ce dépôt privé avec HTTP 422 en raison du forfait. Le site reste en attente de publication.
+Le workflow conserve les rapports et le build statique vérifié dans les artefacts. Le dépôt est public et le job Pages a publié le site après la réussite du job qualité. [Exécution du déploiement](https://github.com/TeeBeeCoder/cesi-devday-j2/actions/runs/41620588080)
+
+**[Ouvrir DevDay sur GitHub Pages](https://teebeecoder.github.io/cesi-devday-j2/)**
+
+Les 12 tests Playwright ont réussi directement sur cette URL, avec Chromium en profils bureau et mobile. Ils couvrent le programme, la recherche, le filtre au clavier, le rendu du texte saisi, l’audit axe et la comparaison visuelle.
 
 ## SonarQube sur le poste
 
