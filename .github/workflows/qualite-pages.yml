@@ -5,6 +5,11 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      refresh_visual_baselines:
+        description: Generate visual references for manual review
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -14,19 +19,35 @@ env:
   BASE_PATH: ${{ vars.PAGES_BASE || format('/{0}/', github.event.repository.name) }}
 jobs:
   qualite:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: '24.16.0'
           cache: npm
       - run: npm ci
+      - run: npm run lint:commits
+      - run: npm run format:check
+      - run: npm run lint:css
       - run: npm run lint:report
+      - run: npm run lint:a11y
       - run: npm run test:unit
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+        if: ${{ !inputs.refresh_visual_baselines }}
+      - run: npm run test:e2e -- --update-snapshots
+        if: inputs.refresh_visual_baselines
+      - name: Upload Linux references for manual review
+        if: inputs.refresh_visual_baselines
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: visual-baselines
+          path: e2e/visual.spec.js-snapshots/*-linux.png
+          if-no-files-found: error
       - name: Tableau des preuves
         if: always()
         run: npm run quality:summary
@@ -42,14 +63,14 @@ jobs:
             test-results/
           retention-days: 7
       - name: Preparer le site
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: vars.ENABLE_PAGES == 'true' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && !inputs.refresh_visual_baselines
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
           path: dist
   publier:
     needs: qualite
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    if: vars.ENABLE_PAGES == 'true' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && !inputs.refresh_visual_baselines
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       pages: write
