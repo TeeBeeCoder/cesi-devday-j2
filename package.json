@@ -21,7 +21,9 @@
     "lint:commits": "sh scripts/lint-commits.sh",
     "format:check": "prettier --check src",
     "format:write": "prettier --write src",
-    "lint:css": "stylelint \"src/**/*.css\""
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "test:logic": "vitest run --config vitest.logic.config.js",
+    "test:component": "vitest run test/App.test.jsx"
   },
   "dependencies": {
     "react": "19.3.1",
