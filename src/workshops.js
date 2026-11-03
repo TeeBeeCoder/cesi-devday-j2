@@ -10,7 +10,7 @@ export function filterWorkshops(workshops, query, onlyAvailable) {
   const search = normalize(query);
   return workshops.filter(
     (item) =>
-      normalize(item.title).includes(search) &&
+      normalize(`${item.title} ${item.topic}`).includes(search) &&
       (!onlyAvailable || item.seats > 0),
   );
 }
